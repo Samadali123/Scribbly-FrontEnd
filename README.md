@@ -1,58 +1,64 @@
-<<<<<<< HEAD
 # Scribbly Frontend
 
-Scribbly is a modern, responsive note-taking app built with scalable architecture using React and Vite. It supports authentication, note creation, filtering, and a rich UX with real-time feedback and loaders.
+The React frontend for Scribbly — a note-taking app where users can write, organize, search, and manage their notes. Built with React 19 and Vite, styled with TailwindCSS, and connected to the Scribbly backend API via Axios. The build output is served directly through the backend in production, so there's no separate frontend hosting needed.
 
-## 🚀 Features
-
-- 🧭 Routing: Handled with `react-router-dom`  
-- 🧠 State Management: Context API  
-- 🔐 Authentication: Integrated with backend using JWT  
-- 📡 API Integration: Using Axios  
-- 🪄 UX Enhancements: Toastify for notifications, Skeleton Loader and React Spinner for loading states  
-
-## 📁 Folder Structure
-
-src/
-│
-├── components/ # UI components
-├── Context.jsx # Context API logic
-├── services/ # API calls
-├── utils/ # Utility functions
-├── App.jsx # Main App component
-├── main.jsx # App entry point
-├── index.css # Global styles
+Backend repo: [Scribbly-backend](https://github.com/Samadali123/Scribbly-backend)  
+Live API: `https://scribbly-backend.onrender.com`
 
 
+## Features
 
-## 🛠️ Tech Stack
+**Auth flow** — users register and log in through forms wired to the backend. JWT is handled via HTTP-only cookies on the server side, so the frontend never touches the token directly. Protected routes redirect unauthenticated users to login automatically.
 
-- React 19
-- Vite
-- React Router DOM v7
-- TailwindCSS
-- Axios
-- React Hook Form
-- React Toastify
-- React Loading Skeleton
-- React Loader Spinner
+**Notes** — create, view, edit, and delete notes. The notes list updates immediately after any action without requiring a page refresh.
 
-## 📦 Installation
+**Search and filter** — users can search their notes by keyword and filter by category or tag without leaving the page.
 
-```bash
+**UX polish** — skeleton loaders show while data is fetching so the page never looks broken. Toast notifications give feedback on every action — note saved, error occurred, logged out. A spinner handles longer async operations. These details matter more than people give them credit for.
+
+**State management** — the app uses Context API throughout rather than Redux. For an app of this scope it keeps things readable without the boilerplate overhead.
+
+## Project Structure
+
+Scribbly-FrontEnd/
+├── src/
+│   ├── components/       # Reusable UI — NoteCard, Navbar, Loader, Skeleton, etc.
+│   ├── services/         # Axios API calls — auth, notes, search
+│   ├── utils/            # Helper functions shared across components
+│   ├── Context.jsx       # Global auth and notes state via Context API
+│   ├── App.jsx           # Root component, route definitions
+│   ├── main.jsx          # React entry point
+│   └── index.css         # Global Tailwind base styles
+├── index.html
+├── vite.config.js        # Vite config — proxy setup for backend API calls in dev
+└── eslint.config.js
+
+## Tech Stack
+
+React 19 · Vite · TailwindCSS · React Router DOM v7 · Axios · Context API · React Hook Form · React Toastify · React Loading Skeleton · React Loader Spinner
+
+
+## Getting Started
+
+Make sure the [Scribbly backend](https://github.com/Samadali123/Scribbly-backend) is running locally first, since the frontend proxies API calls to it in development.
+
+bash
+git clone https://github.com/Samadali123/Scribbly-FrontEnd.git
+cd Scribbly-FrontEnd
 npm install
 npm run dev
-=======
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Opens at `http://localhost:5173`. API calls proxy to `http://localhost:5000` — configure this in `vite.config.js` if your backend runs on a different port.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Build for Production
 
-## Expanding the ESLint configuration
+bash
+npm run build
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
->>>>>>> d7137b4 (Scribly FrontEnd)
+The `dist/` folder contains the compiled static files. In production, the Scribbly backend serves this build directly using Express's static file middleware — so you deploy one thing (the backend on Render) and it handles both the API and the frontend.
+
+
+## Author
+
+Syed Samad Ali — [LinkedIn](https://www.linkedin.com/in/syedsamad125)
